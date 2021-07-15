@@ -34,10 +34,11 @@ namespace SentenceBackend.Service
                 ctx.WordLists.AddRange(Helpers.CompileListForInsert(prepositions, WordTypes.Prepositions));
                 ctx.WordLists.AddRange(Helpers.CompileListForInsert(pronouns, WordTypes.Pronouns));
                 ctx.WordLists.AddRange(Helpers.CompileListForInsert(verbs, WordTypes.Verbs));
-
+                
                 ctx.SaveChanges();
             }
         }
+
         public static bool CheckDataExists()
         {
             using (var ctx = new SentenceBuilderContext())
@@ -52,7 +53,7 @@ namespace SentenceBackend.Service
         }
         #endregion
 
-        #region Retrieve Data
+        #region Read Data
         public static List<string> GetWordsByType(string wordType)
         {
             List<string> words = new List<string>();
@@ -61,6 +62,37 @@ namespace SentenceBackend.Service
                 words = ctx.WordLists.Where(a => a.WordType == wordType).Select(b => b.Word).ToList();
             }
             return words;
+        }
+
+        public static List<string> GetAllSentences()
+        {
+            List<string> sentences = new List<string>();
+            using (var ctx = new SentenceBuilderContext())
+            {
+                sentences = ctx.Sentences.Select(a => a.SentenceContent).ToList();
+            }
+            return sentences;
+        }
+        #endregion
+
+        #region InsertData
+
+        public static bool InsertSentence(string sentence)
+        {
+            int rowsAdded = 0;
+            using (var ctx = new SentenceBuilderContext())
+            {
+                ctx.Sentences.Add(new Sentence()
+                {
+                    SentenceContent = sentence
+                });
+                rowsAdded = ctx.SaveChanges();
+            }
+
+            if (rowsAdded > 0)
+                return true;
+            else
+                return false;
         }
         #endregion
     }

@@ -15,5 +15,6 @@ namespace SentenceBackend
         }
 
         public DbSet<WordList> WordLists { get; set; }
+        public DbSet<Sentence> Sentences { get; set; }
     }
 }

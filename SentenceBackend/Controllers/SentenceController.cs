@@ -14,30 +14,36 @@ namespace SentenceBackend.Controllers
         // GET api/sentence
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return DataLayerHandler.GetAllSentences();
         }
 
         // GET api/sentence/5
         public List<string> Get(int id)
         {
-           string name = Enum.GetName(typeof(WordTypes), id);
-           return DataLayerHandler.GetWordsByType(name);
+            string name = Enum.GetName(typeof(WordTypes), id);
+            List<string> outData = DataLayerHandler.GetWordsByType(name);
+            return outData;
         }
 
-
-        // POST api/values
-        public void Post([FromBody] string value)
+        // POST api/sentence
+        public void Post([FromBody] PostVals value)
         {
+            DataLayerHandler.InsertSentence(value.value);
         }
 
-        // PUT api/values/5
+        // PUT api/sentence/5
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/sentence/5
         public void Delete(int id)
         {
         }
+    }
+
+    public class PostVals
+    {
+        public string value { get; set; }
     }
 }
