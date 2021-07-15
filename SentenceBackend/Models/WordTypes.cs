@@ -5,16 +5,16 @@ using System.Web;
 
 namespace SentenceBackend.Models
 {
-    public enum WordTypes
+    public enum WordTypes : int
     {
-        Adjectives,
-        Adverbs,
-        Conjunctions,
-        Determiners,
-        Exclamations,
-        Nouns,
-        Prepositions,
-        Pronouns,
-        Verbs
+        Adjectives = 0,
+        Adverbs = 1,
+        Conjunctions = 2,
+        Determiners = 3,
+        Exclamations = 4,
+        Nouns = 5,
+        Prepositions = 6,
+        Pronouns = 7,
+        Verbs = 8
     }
 }

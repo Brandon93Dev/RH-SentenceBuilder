@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using SentenceBackend.Models;
 using SentenceBackend.Service;
 
 namespace SentenceBackend.Controllers
@@ -19,7 +20,8 @@ namespace SentenceBackend.Controllers
         // GET api/sentence/5
         public List<string> Get(int id)
         {
-           return DataLayerHandler.GetWordsByType(id);
+           string name = Enum.GetName(typeof(WordTypes), id);
+           return DataLayerHandler.GetWordsByType(name);
         }
 
 

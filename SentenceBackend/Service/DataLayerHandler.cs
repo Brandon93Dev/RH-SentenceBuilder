@@ -53,17 +53,13 @@ namespace SentenceBackend.Service
         #endregion
 
         #region Retrieve Data
-
-        public static List<string> GetWordsByType(int type)
+        public static List<string> GetWordsByType(string wordType)
         {
-            var typeEnum = Enum.GetName(typeof(WordTypes), type);
             List<string> words = new List<string>();
-
             using (var ctx = new SentenceBuilderContext())
             {
-                words = ctx.WordLists.Where(a => a.WordType == typeEnum).Select(b => b.Word).ToList();
+                words = ctx.WordLists.Where(a => a.WordType == wordType).Select(b => b.Word).ToList();
             }
-
             return words;
         }
         #endregion
